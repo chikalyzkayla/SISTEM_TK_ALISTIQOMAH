@@ -23,7 +23,11 @@
        class="block py-2 px-4 hover:bg-gray-700 {{ Request::is('admin/siswa*') ? 'bg-gray-700' : '' }}">
         Kelola Siswa
     </a>
-    <a href="{{ route('admin.backup.index') }}" 
+    <a href="{{ route('admin.pendaftaran.index') }}"
+       class="block py-2 px-4 hover:bg-gray-700 {{ Request::is('admin/pendaftaran*') ? 'bg-gray-700' : '' }}">
+        Pendaftaran Siswa
+    </a>
+    <a href="{{ route('admin.backup.index') }}"
        class="block py-2 px-4 hover:bg-gray-700 {{ Request::is('admin/backup*') ? 'bg-gray-700' : '' }}">
         Backup Database
     </a>

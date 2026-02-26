@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\BackupController;
+use App\Http\Controllers\Admin\PendaftaranController as AdminPendaftaranController;
 
 // Halaman utama
 Route::get('/', function () {
@@ -26,6 +28,11 @@ Route::middleware('auth')->group(function () {
 
 // Auth routes (login, register, dll)
 require __DIR__.'/auth.php';
+
+// Pendaftaran Siswa (Publik - tanpa login)
+Route::get('/pendaftaran', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
+Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+Route::get('/pendaftaran/status/{nomor}', [PendaftaranController::class, 'status'])->name('pendaftaran.status');
 
 // ADMIN ROUTES
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function () {
@@ -50,6 +57,12 @@ Route::middleware(['auth', 'role:Admin'])->prefix('admin')->group(function () {
     Route::put('/siswa/{siswa}', [SiswaController::class, 'update'])->name('admin.siswa.update');
     Route::delete('/siswa/{siswa}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
     
+    // Pendaftaran Siswa (Review oleh Admin)
+    Route::get('/pendaftaran', [AdminPendaftaranController::class, 'index'])->name('admin.pendaftaran.index');
+    Route::get('/pendaftaran/{pendaftaran}', [AdminPendaftaranController::class, 'show'])->name('admin.pendaftaran.show');
+    Route::post('/pendaftaran/{pendaftaran}/setujui', [AdminPendaftaranController::class, 'setujui'])->name('admin.pendaftaran.setujui');
+    Route::post('/pendaftaran/{pendaftaran}/tolak', [AdminPendaftaranController::class, 'tolak'])->name('admin.pendaftaran.tolak');
+
     // Backup Database
     Route::get('/backup', [App\Http\Controllers\Admin\BackupController::class, 'index'])
     ->name('admin.backup.index');

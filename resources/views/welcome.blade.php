@@ -32,6 +32,12 @@
                         </a>
                     @else
                         <a
+                            href="{{ route('pendaftaran.create') }}"
+                            class="inline-block px-5 py-1.5 bg-green-600 text-white hover:bg-green-700 rounded-sm text-sm leading-normal font-medium"
+                        >
+                            Daftar Siswa
+                        </a>
+                        <a
                             href="{{ route('login') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
                         >
